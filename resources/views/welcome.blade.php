@@ -49,7 +49,7 @@
                                             <td class="customer-address">{{$customer->address}}</td>
                                             <td>
                                                 <a id="edit" href="#" data-target="#editCustomer" data-toggle="modal" class="btn btn-sm btn-info">Edit</a>
-	                                            <a id="delete" href="#" class="btn btn-sm btn-danger">Delete</a>
+	                                            <a id="delete" data-target="#deleteCustomer" data-toggle="modal" href="#" class="btn btn-sm btn-danger">Delete</a>
                                             </td>
                                         </tr> 
                                     @endforeach
@@ -134,6 +134,30 @@
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-success">Update Customer</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteCustomer" tabindex="-1" role="dialog" aria-labelledby="deleteTaskTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <form id="deleteForm">
+            <div class="modal-header">
+            <h5 class="modal-title" id="deleteTaskTitle">Delete Customer</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body text-center">
+                <div id="deleteMsg"></div>
+                <h4>Are you you want to delete this?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
             </div>
         </form>
       </div>

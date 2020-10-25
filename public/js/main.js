@@ -32,15 +32,15 @@ $('#createForm').submit(function(e){
 
             //append result in table
             $('#TableBody').prepend(`
-            <tr>
+            <tr data-id = "`+res.id+`">
                 <td>`+res.id+`</td>
                 <td>`+res.name+`</td>
                 <td>`+res.email+`</td>
                 <td>`+res.phone+`</td>
                 <td>`+res.address+`</td>
                 <td>
-                <a href="#" class="btn btn-sm btn-info">Edit</a>
-                <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                    <a id="edit" href="#" data-target="#editCustomer" data-toggle="modal" class="btn btn-sm btn-info">Edit</a>
+                    <a id="delete" data-target="#deleteCustomer" data-toggle="modal" href="#" class="btn btn-sm btn-danger">Delete</a>
                 </td>
             </tr> 
             `)
@@ -126,12 +126,59 @@ $('#editForm').submit(function(e){
 
 });
 
+//delete customer popup window
+$(document).on('click','#delete',function(){
+    let customer = $(this).closest('tr').data('id');
+    $('#deleteForm button[type="submit"]').click({
+        id:customer
+    },deleteData);
+
+    function deleteData(e){
+        let msg = $('#deleteMsg');
+        let id = e.data.id;
+        $.ajax({
+            type:'POST',
+            url:'/customer/delete/'+id,
+            success:function(res){
+                $(msg).html('');
+                $('#deleteForm').find('h4').remove();
+                $('#deleteForm').find('button[type="submit"]').remove();
+                $(msg).append('<div class = "alert alert-success">Customer Deleted successfully!</div>');
+                let customer = $('#TableBody').find('tr[data-id="'+id+'"]');
+                $(customer).remove();
+
+            },
+            error: function(error){
+                console.log(error);
+            }
+        });
+    }
+});
+$('#deleteForm').submit(function(e){
+    e.preventDefault();
+})
+
+
+
 
 // create modal set to default
 $('#createCustomer').on('hidden.bs.modal', function (e) {
     $('#createForm').find('#createMsg').html('');
 })
-// create modal set to default
+// edit modal set to default
 $('#editCustomer').on('hidden.bs.modal', function (e) {
     $('#editForm').find('#editMsg').html('');
 })
+//delete modal reset to default
+$('#deleteCustomer').on('hidden.bs.modal', function(e){
+    modal= $('#deleteForm');
+    $(modal).find('#deleteMsg').html('');
+    $(modal).find('.modal-body').html('').append(`
+        <div id = "deleteMsg"></div>
+        <h4>Are you you want to delete this?</h4>
+    `);
+    $(modal).find('.modal-footer').html('').append(`
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    `);
+});

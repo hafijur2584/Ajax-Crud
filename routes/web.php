@@ -18,4 +18,5 @@ Route::get('/','CustomerController@index');
 Route::post('/customer/store','CustomerController@store');
 Route::get('/customer/edit/{id}','CustomerController@edit');
 Route::post('/customer/update/{id}','CustomerController@update');
+Route::post('/customer/delete/{id}','CustomerController@delete');
 

@@ -53,4 +53,13 @@ class CustomerController extends Controller
 
         return response()->json($customer,200);
     }
+    public function delete($id){
+        $customer = Customer::findOrfail($id);
+        if($customer){
+            $customer->delete();
+            return response()->json('Customer delete successfully!',200);
+        }else{
+            return response()->json('something gone wrong!',200);
+        }
+    }
 }
