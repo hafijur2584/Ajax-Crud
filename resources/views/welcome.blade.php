@@ -25,7 +25,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h3 class="mb-0">Alll Customer</h3>
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createTask">Create Customer</a>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createCustomer">Create Customer</a>
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered">
@@ -39,7 +39,20 @@
                                         <th style="width:150px"> Action </th>
                                     </tr>
                                 </thead>
-                                <tbody id="taskTableBody">
+                                <tbody id="TableBody">
+                                    @foreach ($customers as $customer)
+                                        <tr data-id= "{{$customer->id}}">
+                                            <td>{{$customer->id}}</td>
+                                            <td class="customer-name">{{$customer->name}}</td>
+                                            <td class="customer-email">{{$customer->email}}</td>
+                                            <td class="customer-phone">{{$customer->phone}}</td>
+                                            <td class="customer-address">{{$customer->address}}</td>
+                                            <td>
+                                                <a id="edit" href="#" data-target="#editCustomer" data-toggle="modal" class="btn btn-sm btn-info">Edit</a>
+	                                            <a id="delete" href="#" class="btn btn-sm btn-danger">Delete</a>
+                                            </td>
+                                        </tr> 
+                                    @endforeach
                                     
                                 </tbody>
                             </table>
@@ -51,7 +64,7 @@
     </section>
 
   <!-- Create Modal -->
-  <div class="modal fade" id="createTask" tabindex="-1" role="dialog" aria-labelledby="createTaskTitle" aria-hidden="true">
+  <div class="modal fade" id="createCustomer" tabindex="-1" role="dialog" aria-labelledby="createTaskTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
           <form id="createForm">
@@ -62,27 +75,65 @@
             </button>
             </div>
             <div class="modal-body">
-                <div id="createTaskMessage"></div>
+                <div id="createMsg"></div>
                 <div class="form-group">
                     <label for="">Customer name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Customer name">
+                    <input id="cerate_name" type="text" class="form-control" name="name" placeholder="Customer name">
                 </div>
                 <div class="form-group">
                     <label for="email">Customer Email</label>
-                    <input type="email" class="form-control" name="email" placeholder="Customer email">
+                    <input id="cerate_email" type="email" class="form-control" name="email" placeholder="Customer email">
                 </div>
                 <div class="form-group">
                     <label for="phone">Customer Phone</label>
-                    <input type="text" class="form-control" name="phone" placeholder="Customer phone">
+                    <input id="cerate_phone" type="text" class="form-control" name="phone" placeholder="Customer phone">
                 </div>
                 <div class="form-group">
                     <label for="address">Customer address</label>
-                    <input type="text" class="form-control" name="address" placeholder="Customer address">
+                    <input id="cerate_address" type="text" class="form-control" name="address" placeholder="Customer address">
                 </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-success">Create Customer</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+   <!-- Edit Modal -->
+   <div class="modal fade" id="editCustomer" tabindex="-1" role="dialog" aria-labelledby="editTaskTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <form id="editForm">
+            <div class="modal-header">
+            <h5 class="modal-title" id="editTaskTitle">Edit Csutomer</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div id="editMsg"></div>
+                <div class="form-group">
+                    <label for="">Customer name</label>
+                    <input id="edit_name" type="text" class="form-control" name="name" placeholder="Customer name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Customer Email</label>
+                    <input id="edit_email" type="email" class="form-control" name="email" placeholder="Customer email">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Customer Phone</label>
+                    <input id="edit_phone" type="text" class="form-control" name="phone" placeholder="Customer phone">
+                </div>
+                <div class="form-group">
+                    <label for="address">Customer address</label>
+                    <input id="edit_address" type="text" class="form-control" name="address" placeholder="Customer address">
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Update Customer</button>
             </div>
         </form>
       </div>
